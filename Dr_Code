@@ -1,0 +1,108 @@
+// NAME: ALI SAFWAT ALI
+// ID: 20201118
+//LAB: S13
+
+#include<iostream>
+#define DR cin.tie(0),cin.sync_with_stdio(0), cout.tie(0),cout.sync_with_stdio(0)
+using namespace std;
+class PersonData
+{
+	string lastName;
+	string firstName;
+	string address;
+	string city;
+	string phone;
+public:
+	PersonData(){}
+	PersonData(string ln, string fn, string a, string c, string p)
+	{
+		setPData(ln, fn, a, c, p);
+	}
+	void printPerson()
+	{
+		cout << "First Name:" << " "<< firstName << endl;
+		cout << "Last Name:" <<" " << lastName << endl;
+		cout << "Address:" << " " << address << endl;
+		cout << "City:" << " " << city << endl;
+		cout << "Phone:" << " " << phone << endl;
+	}
+	void setPData(string ln, string fn, string a, string c, string p)
+	{
+		lastName = ln;
+		firstName = fn;
+		address = a;
+		city = c;
+		phone = p;
+	}
+};
+class CustomerData : public PersonData {
+private:
+	int customerNumber;
+	bool mailingList;
+public:
+	//empty constructor
+	CustomerData() { mailingList = 0; }
+	//constructor with arguments
+	CustomerData(string lName, string fName, string add, string mCity, string mPhone,
+		int custNumber, bool mList);
+	// setter function
+	void setcustData(string lName, string fName, string add, string mCity, string mPhone,
+		int custNumber, bool mList);
+	// print function
+	void print();
+};
+CustomerData::CustomerData(string lName, string fName, string add, string mCity, string mPhone, int custNumber, bool mList)
+	: PersonData(lName, fName, add, mCity, mPhone)
+{
+	customerNumber = custNumber;
+	mailingList = mList;
+}
+void CustomerData::setcustData(string lName, string fName, string add, string mCity, string mPhone,int custNumber, bool mList) 
+{
+	customerNumber = custNumber;
+	mailingList = mList;
+}
+void CustomerData :: print()
+{
+	cout << "\nCustomer number:" << " " << customerNumber << "\n";
+	PersonData::printPerson();
+}
+
+int main()
+{
+	cout << "Please enter the number of customers: \n"; 
+	int n;  cin >> n; // Number of customer (size of the array)
+	CustomerData* customer = new CustomerData[n]; 
+	for (int i = 0; i < n; ++i)
+	{
+		cout << "please enter Customer first name:\n";
+		string f; cin >> f; 
+		cout << "Please enter the customer last name: \n";
+		string l; cin >> l;
+		cout << "Please enter the customer adderss: \n";
+		string add; cin >> add;
+		cout << "Please enter the customer city: \n";
+		string c; cin >> c;
+		cout << "Please enter the customer phone number: \n";
+		string num; cin >> num;
+		cout << "Please enter the customer number:\n";
+		int number; cin >> number;
+		cout << "Please enter the mailList: 0- false    1- true\n";
+		bool mail; cin >> mail;
+
+
+		/*customer[i].setPData(l, f, add, c, num);
+		customer[i].setcustData(l, f, add, c, num, number, mail);*/
+
+		// bouns part
+		customer[i] = CustomerData(); // defaulte constructor 
+		customer[i] = CustomerData(l, f, add, c, num, number, mail); // parameterized constructor
+	}
+	// print customer info
+	for (int i = 0; i < n; ++i)
+	{
+		customer[i].print();
+	}
+	delete[] customer; // delete the array 
+	return 0;
+}
